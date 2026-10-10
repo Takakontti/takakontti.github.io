@@ -46,6 +46,10 @@ h1 em { color: var(--gold-bright); font-weight: 500; }
 .hero-ornament:after { inset: 21px; transform: rotate(45deg) scale(.78); border-radius: 4px; }
 .hero-ornament i { inset: 21px; transform: rotate(-45deg) scale(.78); border-radius: 4px; }
 .hero-ornament span { font-size: 46px; color: var(--gold); }
+.league-notice { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 14px; padding: 13px 16px; border: 1px solid #62573e; border-left: 3px solid var(--gold); border-radius: 4px; background: #1b1a16; }
+.league-notice-icon { flex: 0 0 18px; width: 18px; height: 18px; display: grid; place-items: center; margin-top: 1px; border: 1px solid #a58a58; border-radius: 50%; color: var(--gold-bright); font: 600 12px Georgia, serif; }
+.league-notice p { margin: 0; color: #c1b9a9; font-size: 11px; line-height: 1.65; }
+.league-notice strong { color: var(--gold-bright); font-size: 11px; }
 .progress-panel { padding: 25px 30px 19px; margin: 18px 0 46px; background: linear-gradient(115deg, #1d1c17, #191916 70%); border: 1px solid #38352c; border-radius: 4px; }
 .progress-topline { display: flex; justify-content: space-between; align-items: center; }
 .progress-topline .eyebrow { margin-bottom: 9px; }
