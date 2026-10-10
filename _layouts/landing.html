@@ -12,6 +12,7 @@
         if (theme === "dark" || theme === "light") document.documentElement.dataset.theme = theme;
       } catch { /* Use the default theme when browser storage is unavailable. */ }
     </script>
+    <link rel="icon" href="{{ '/img/favicon.ico' | relative_url }}" />
     <link rel="stylesheet" href="{{ '/landing.css' | relative_url }}" />
     <script src="{{ '/theme.js' | relative_url }}" defer></script>
   </head>
