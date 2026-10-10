@@ -26,5 +26,5 @@ I’m planning more small web tools and project experiments. New projects will a
 
 <div class="upcoming-card">
 	<span class="upcoming-icon" aria-hidden="true">＋</span>
-	<p><strong>More projects coming soon.</strong><br />This page will grow as I build and publish new tools.</p>
+	<p><strong>More projects to come.</strong><br />This page will grow as I build and publish new tools.</p>
 </div>
