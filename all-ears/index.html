@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11110f" />
+    <meta name="description" content="A quest-ordered, local progress tracker for the Path of Exile All Ears achievement." />
+    <title>All Ears — Takakontti</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../" aria-label="Takakontti home">
+          <span class="brand-mark" aria-hidden="true">✳</span>
+          <span>TAKAKONTTI</span>
+        </a>
+        <div class="header-actions">
+          <span class="local-badge" id="storage-status"><span aria-hidden="true"></span> Progress is temporary</span>
+          <button class="privacy-button" id="privacy-settings" type="button">Privacy settings</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="eyebrow">ACHIEVEMENT TRACKER <span></span> PATH OF EXILE</p>
+            <h1 id="page-title">All <em>Ears</em></h1>
+            <p class="hero-description">Every optional conversation, in story order. Keep your ears open, your quest items close, and your progress in one place.</p>
+          </div>
+          <div class="hero-ornament" aria-hidden="true"><span>✳</span><i></i></div>
+        </section>
+
+        <section class="progress-panel" aria-label="Overall achievement progress">
+          <div class="progress-topline">
+            <div>
+              <p class="eyebrow">YOUR JOURNEY</p>
+              <h2><span id="completed-count">0</span><span class="count-divider">/</span><span id="total-count">484</span> <span class="count-caption">conversations heard</span></h2>
+            </div>
+            <div class="progress-percent" id="progress-percent">0%</div>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Achievement progress" aria-valuemin="0" aria-valuemax="484" aria-valuenow="0">
+            <span id="progress-fill"></span>
+          </div>
+          <div class="progress-foot">
+            <span id="remaining-count">484 still to find</span>
+            <button class="text-button" id="next-step" type="button">Go to next unchecked <span aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+
+        <section class="tracker-layout" aria-label="All Ears checklist">
+          <aside class="sidebar">
+            <div class="character-card">
+              <label for="character-name">TRACKING CHARACTER</label>
+              <div class="character-input-wrap">
+                <span aria-hidden="true">♙</span>
+                <input id="character-name" type="text" maxlength="32" value="Exile" autocomplete="off" aria-describedby="character-hint" />
+              </div>
+              <p id="character-hint">Progress is separate for each name on this device.</p>
+            </div>
+            <div class="act-navigation">
+              <div class="section-label"><span>STORY CHECKPOINTS</span><span>PROGRESS</span></div>
+              <nav id="act-list" aria-label="Filter by act"></nav>
+            </div>
+            <div class="sidebar-note">
+              <span class="note-icon" aria-hidden="true">!</span>
+              <p><strong>One character, in order.</strong> Some conversations disappear after quest milestones. Check the condition before moving on.</p>
+            </div>
+          </aside>
+
+          <section class="checklist-area" aria-live="polite">
+            <div class="checklist-heading">
+              <div>
+                <p class="eyebrow" id="act-kicker">ACT 1 <span>·</span> 41 CONVERSATIONS</p>
+                <h2 id="act-title">The Twilight Strand</h2>
+              </div>
+              <label class="search-box">
+                <span class="search-icon" aria-hidden="true">⌕</span>
+                <span class="visually-hidden">Search conversations</span>
+                <input id="search" type="search" placeholder="Find NPC or dialogue…" />
+                <kbd>/</kbd>
+              </label>
+            </div>
+            <div class="filter-row">
+              <span id="visible-count">Showing ordered steps</span>
+              <div class="list-controls">
+                <label class="hide-completed-control"><input id="hide-completed" type="checkbox" /><span>Hide checked</span></label>
+                <button id="reset-progress" class="text-button danger-button" type="button">Reset this character</button>
+              </div>
+            </div>
+            <div id="checklist" class="checklist" aria-label="Ordered dialogue steps">
+              <div class="loading-state"><span class="spinner" aria-hidden="true"></span><p>Gathering the conversations…</p></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="source-note" aria-label="Source and disclaimer">
+          <div class="source-rule"></div>
+          <p>Checklist adapted from “<a href="https://www.poewiki.net/wiki/Guide:All_Ears_achievement" target="_blank" rel="noopener noreferrer">Guide: All Ears achievement</a>” on the Path of Exile Wiki (last updated June 30, 2025; source revision <a href="https://www.poewiki.net/w/index.php?title=Guide:All_Ears_achievement&amp;oldid=1680570" target="_blank" rel="noopener noreferrer">1680570</a>). The checklist adaptation is available under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 3.0</a>. Changes: reformatted as an ordered checklist, added quest-condition presentation, search, and local progress tracking. See the <a href="../Guide_All%20Ears%20achievement%20_%20PoE%20Wiki.html">source copy</a> and <a href="https://www.poewiki.net/w/index.php?title=Guide:All_Ears_achievement&amp;action=history" target="_blank" rel="noopener noreferrer">wiki page history</a>. The source's Act 4 summary says 73 points, but its numbered checklist has 72 entries; this tracker follows the complete numbered sequence 1–484. This is a non-commercial fan-made product. This product isn't affiliated with or endorsed by Grinding Gear Games in any way.</p>
+        </section>
+      </main>
+
+      <footer><span>TAKAKONTTI</span><span><a href="../privacy.html">Privacy</a> · <a href="../">More projects</a></span></footer>
+    </div>
+    <dialog class="consent-dialog" id="storage-consent" aria-labelledby="consent-title" aria-describedby="consent-description">
+      <div class="consent-mark" aria-hidden="true">✳</div>
+      <p class="eyebrow">YOUR CHOICE</p>
+      <h2 id="consent-title">Keep your progress?</h2>
+      <p id="consent-description">This tracker does not use cookies. If you allow local saving, your character label, checked steps, and hide-checked preference will be stored in this browser on this device; your entered tracker data is not sent to the site operator. GitHub Pages separately logs visitor IP addresses for security.</p>
+      <p class="consent-note">Choose “Continue without saving” to use the tracker for this visit only. Your choices are never stored unless you allow local saving. You can change this setting later.</p>
+      <div class="consent-actions">
+        <button class="consent-allow" id="allow-storage" type="button">Allow local saving</button>
+        <button class="consent-deny" id="deny-storage" type="button">Continue without saving</button>
+      </div>
+      <div class="consent-footer"><a href="../privacy.html">Read the full privacy notice</a><button id="export-progress" type="button" hidden>Export my saved tracker data</button></div>
+    </dialog>
+    <noscript><p class="noscript">This tracker needs JavaScript enabled to load and save your checklist.</p></noscript>
+  </body>
+</html>
