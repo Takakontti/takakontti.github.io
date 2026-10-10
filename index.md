@@ -4,13 +4,13 @@ title: Takakontti
 description: Personal projects, experiments, and small web tools by Dani.
 ---
 
-# Hi, I'm Dani. {#about}
+# Hi, I'm Takakontti. {#about}
 
-Welcome to my little corner of the web. I make projects and practical tools, and use this space to share what I’m working on. This page is the home for those projects—starting with a companion tool for a game I enjoy.
+Welcome to my website. I make projects and practical tools, and use this space to share what I’m working on. This page is the home for those projects.
 
 ## Projects {#projects}
 
-<p class="project-kicker">FEATURED TOOL · PATH OF EXILE</p>
+<p class="project-kicker">FEATURED TOOLS · PATH OF EXILE</p>
 
 ### All Ears achievement tracker
 

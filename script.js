@@ -1,17 +1,4 @@
-const GUIDE_URL = "../Guide_All%20Ears%20achievement%20_%20PoE%20Wiki.html";
 const TARGET_TOTAL = 484;
-const ACT_NAMES = {
-  1: "The Twilight Strand",
-  2: "The Forest Encampment",
-  3: "The Sarn Encampment",
-  4: "Highgate",
-  5: "Overseer's Tower",
-  6: "Lioneye's Watch",
-  7: "The Bridge Encampment",
-  8: "The Sarn Encampment",
-  9: "Highgate",
-  10: "Oriath"
-};
 
 const dom = {
   actList: document.querySelector("#act-list"),
@@ -55,112 +42,39 @@ function cleanText(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
 
-function rowsFromTable(table) {
-  const activeSpans = [];
-  const output = [];
-
-  for (const row of table.rows) {
-    if (row.querySelector("th")) continue;
-    const values = [];
-    const nextSpans = [];
-
-    activeSpans.forEach((span, column) => {
-      if (span && span.remaining > 0) {
-        values[column] = span.value;
-        if (span.remaining > 1) nextSpans[column] = { value: span.value, remaining: span.remaining - 1 };
-      }
-    });
-
-    let column = 0;
-    for (const cell of row.cells) {
-      while (values[column] !== undefined) column += 1;
-      const content = cell.cloneNode(true);
-      content.querySelectorAll("sup.reference, .reference").forEach((reference) => reference.remove());
-      const value = cleanText(content.textContent);
-      values[column] = value;
-      const spanCount = Number(cell.rowSpan) || 1;
-      if (spanCount > 1) nextSpans[column] = { value, remaining: spanCount - 1 };
-      column += 1;
-    }
-
-    activeSpans.splice(0, activeSpans.length, ...nextSpans);
-    if (!/^\d+$/.test(values[0] ?? "")) continue;
-    output.push({
-      number: Number(values[0]),
-      npc: values[1] || "Unknown NPC",
-      dialogue: values[2] || "Optional dialogue",
-      condition: values[3] || ""
-    });
-  }
-  return output;
-}
-
-function readGuide(html) {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  const article = doc.querySelector("#mw-content-text .mw-parser-output");
-  if (!article) throw new Error("The guide page did not contain its checklist.");
-
-  const children = [...article.children];
-  const actHeadings = children.filter((element) => /^Act_\d+$/.test(element.querySelector(".mw-headline")?.id ?? ""));
-  const parsedActs = [];
-
-  for (const heading of actHeadings) {
-    const actNumber = Number(heading.querySelector(".mw-headline").id.match(/\d+/)[0]);
-    const steps = [];
-    let subheading = "";
-    let sequence = 0;
-    const branchOptions = new Map();
-    let inBanditSubsection = false;
-    let branchNote = "";
-
-    for (let index = children.indexOf(heading) + 1; index < children.length; index += 1) {
-      const element = children[index];
-      if (element.matches("h3")) break;
-      if (element.matches("h4")) {
-        subheading = cleanText(element.textContent);
-        inBanditSubsection = /deal with the bandits|ruler of highgate/i.test(subheading);
-        branchNote = "";
-        continue;
-      }
-      if (inBanditSubsection && element.matches("p") && /^\d+\./.test(cleanText(element.textContent))) {
-        branchNote = cleanText(element.textContent);
-        continue;
-      }
-      if (!element.matches("table")) continue;
-
-      const rows = rowsFromTable(element);
-      if (inBanditSubsection) {
-        for (const row of rows) {
-          if (!branchOptions.has(row.number)) branchOptions.set(row.number, []);
-          branchOptions.get(row.number).push({ ...row, note: branchNote });
-        }
-        branchNote = "";
-        continue;
-      }
-
-      for (const row of rows) {
-        sequence += 1;
-        steps.push({
-          id: `act-${actNumber}-step-${sequence}`,
-          act: actNumber,
-          sequence,
-          number: row.number,
-          npc: row.npc,
-          dialogue: row.dialogue,
-          condition: row.condition,
-          branchOptions: []
-        });
-      }
-    }
-
-    for (const step of steps) {
-      if (branchOptions.has(step.number)) step.branchOptions = branchOptions.get(step.number);
-    }
-
-    if (steps.length) parsedActs.push({ number: actNumber, name: ACT_NAMES[actNumber] ?? `Act ${actNumber}`, steps });
+async function loadChecklistData() {
+  if (!window.ALL_EARS_GZIP_BASE64 || typeof DecompressionStream === "undefined") {
+    throw new Error("This browser cannot load the checklist data. Please use an up-to-date browser.");
   }
 
-  return parsedActs;
+  const binary = atob(window.ALL_EARS_GZIP_BASE64);
+  const compressed = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  const stream = new Blob([compressed]).stream().pipeThrough(new DecompressionStream("gzip"));
+  const data = JSON.parse(await new Response(stream).text());
+  if (data.format !== "takakontti-all-ears-checklist" || !Array.isArray(data.acts)) {
+    throw new Error("The checklist data has an unsupported format.");
+  }
+
+  return data.acts.map((act) => ({
+    number: act.number,
+    name: act.name,
+    steps: act.steps.map((row, index) => ({
+      id: `act-${act.number}-step-${index + 1}`,
+      act: act.number,
+      sequence: index + 1,
+      number: row[0],
+      npc: row[1],
+      dialogue: row[2],
+      condition: row[3],
+      branchOptions: (act.choices?.[row[0]] ?? []).map((choice) => ({
+        number: choice[0],
+        npc: choice[1],
+        dialogue: choice[2],
+        condition: choice[3],
+        note: choice[4]
+      }))
+    }))
+  }));
 }
 
 function storageKey(name) {
@@ -346,9 +260,7 @@ function render() {
 
 async function start() {
   try {
-    const response = await fetch(GUIDE_URL);
-    if (!response.ok) throw new Error(`Could not load the local guide (HTTP ${response.status}).`);
-    acts = readGuide(await response.text());
+    acts = await loadChecklistData();
     allSteps = acts.flatMap((act) => act.steps);
     if (!allSteps.length) throw new Error("No ordered dialogue steps were found in the local guide.");
     dom.totalCount.textContent = allSteps.length;
@@ -378,7 +290,7 @@ async function start() {
       showConsent();
     }
   } catch (error) {
-    dom.checklist.innerHTML = `<div class="empty-state"><p>${escapeHtml(error.message)} Make sure the downloaded All Ears guide is in this site’s root folder and open the site through a web server.</p></div>`;
+    dom.checklist.innerHTML = `<div class="empty-state"><p>${escapeHtml(error.message)}</p></div>`;
     dom.visibleCount.textContent = "Checklist unavailable";
   }
 }
