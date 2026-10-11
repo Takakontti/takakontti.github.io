@@ -1,9 +1,9 @@
 name: GitHub Pages build check
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - dev
   workflow_dispatch:
 
 permissions:
