@@ -20,6 +20,8 @@ Features include per-character progress, search, act-by-act navigation, and an o
 
 <a class="primary-link" href="all-ears/">Open the All Ears tracker <span aria-hidden="true">→</span></a>
 
+### No Stone Unturned - Coming soon
+
 ## More tools {#tools}
 
 I’m planning more small web tools and project experiments. New projects will appear here as they’re ready.

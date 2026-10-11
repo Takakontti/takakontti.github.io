@@ -16,7 +16,6 @@ Visit the [live site](https://takakontti.github.io/) for the project overview.
 - The site does not use cookies. Local storage is only used after the user explicitly opts in; **Privacy settings** can disable saving and clear this site's saved progress.
 - See [privacy.html](privacy.html) for the privacy notice.
 - GitHub Pages logs visitor IP addresses for security purposes. This is done by GitHub as the host, not by the tracker; see its [Pages data-collection notice](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection) and [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
-- Fonts are system fonts; the page does not make Google Fonts requests or load analytics, embedded media, game assets, GGG APIs, or game files.
 - Opted-in users can download a machine-readable JSON export from **Privacy settings**; withdrawing consent clears this tracker's stored data.
 - Use the act buttons to navigate, search to find an NPC/dialogue, **Hide checked** to declutter the list, and **Go to next unchecked** to continue in sequence.
 - The tracker data is embedded as a compact gzip payload in the generated JavaScript asset, so the source guide pages are not needed at runtime. For local preview, serve the repository over HTTP to match GitHub Pages behavior.
