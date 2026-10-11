@@ -1,0 +1,42 @@
+name: GitHub Pages build check
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and verify site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Verify published files
+        run: |
+          test -s _site/index.html
+          test -s _site/all-ears/index.html
+          test -s _site/landing.css
+          test -s _site/theme.js
+          test -s _site/data/all-ears-data.js
+          test -s _site/img/spurdoro.png
+          test -s _site/privacy.html
+          if find _site -type f \( -name 'allEarsWikiSite.html' -o -name 'noStoneUnturnedWikiSite.html' \) -print -quit | grep -q .; then
+            echo "Raw downloaded Wiki pages must not be published."
+            exit 1
+          fi
