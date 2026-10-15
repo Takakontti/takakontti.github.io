@@ -1,7 +1,7 @@
 ---
 layout: landing
 title: Takakontti
-description: Personal projects, experiments, and small web tools by Dani.
+description: Personal projects, experiments, and small web tools.
 ---
 
 # Hi, I'm Takakontti. {#about}

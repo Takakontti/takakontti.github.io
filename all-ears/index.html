@@ -7,6 +7,7 @@
     <meta name="description" content="A quest-ordered, local progress tracker for the Path of Exile All Ears achievement." />
     <title>All Ears — Takakontti</title>
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="icon" href="../img/AEfavicon.svg" type="image/svg+xml" />
     <script src="../data/all-ears-data.js" defer></script>
     <script src="../script.js" defer></script>
   </head>
@@ -26,11 +27,11 @@
       <main>
         <section class="hero" aria-labelledby="page-title">
           <div class="hero-copy">
-            <p class="eyebrow">ACHIEVEMENT TRACKER <span></span> PATH OF EXILE</p>
+            <p class="eyebrow">ACHIEVEMENT TRACKER <span>-</span> PATH OF EXILE</p>
             <h1 id="page-title">All <em>Ears</em></h1>
             <p class="hero-description">Every optional conversation, in story order. Keep your ears open, your quest items close, and your progress in one place.</p>
           </div>
-          <div class="hero-ornament" aria-hidden="true"><span>✳</span><i></i></div>
+          <img class="hero-ornament" src="../img/MirrorOfKalandra.svg" alt="Line art of the Mirror of Kalandra from Path of Exile" />
         </section>
 
         <aside class="league-notice" aria-label="Achievement league availability">
@@ -85,7 +86,6 @@
                 <span class="search-icon" aria-hidden="true">⌕</span>
                 <span class="visually-hidden">Search conversations</span>
                 <input id="search" type="search" placeholder="Find NPC or dialogue…" />
-                <kbd>/</kbd>
               </label>
             </div>
             <div class="filter-row">
