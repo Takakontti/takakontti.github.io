@@ -12,7 +12,7 @@ const translations = {
     homeIntro: "Welcome to my website. I make projects and practical tools, and use this space to share what I’m working on. This page is the home for those projects.",
     projectsTitle: "Projects", featuredTools: "FEATURED TOOLS · PATH OF EXILE",
     trackerTitle: "All Ears achievement tracker",
-    trackerIntro: "An ordered checklist for the **All Ears** achievement. Follow optional NPC conversations in quest order, check off what you’ve heard, and keep track of important quest conditions along the way.",
+    trackerIntro: "An ordered checklist for the <strong>All Ears</strong> achievement. Follow optional NPC conversations in quest order, check off what you’ve heard, and keep track of important quest conditions along the way.",
     trackerDetails: "Features include per-character progress, search, act-by-act navigation, and an option to hide completed steps. Progress can stay temporary or be saved locally in your browser if you choose. It is a fan-made tool and is not affiliated with Grinding Gear Games.",
     trackerLink: "Open the All Ears tracker", comingSoon: "No Stone Unturned - Coming soon",
     toolsTitle: "More tools",
@@ -28,7 +28,7 @@ const translations = {
     homeIntro: "Tervetuloa verkkosivulleni. Teen projekteja ja käytännöllisiä työkaluja sekä kerron täällä, mitä parhaillaan työstän. Tämä sivu kokoaa projektini yhteen.",
     projectsTitle: "Projektit", featuredTools: "ESITTELYSSÄ · PATH OF EXILE",
     trackerTitle: "All Ears saavutuksen seuranta",
-    trackerIntro: "Järjestyksessä etenevä tarkistuslista **All Ears** saavutukseen. Seuraa valinnaisia NPC-keskusteluja tehtävien järjestyksessä, merkitse kuulemasi keskustelut ja pidä kirjaa tärkeistä tehtäväehdoista matkan varrella.",
+    trackerIntro: "Järjestyksessä etenevä tarkistuslista <strong>All Ears</strong>-saavutukseen. Seuraa valinnaisia NPC-keskusteluja tehtävien järjestyksessä, merkitse kuulemasi keskustelut ja pidä kirjaa tärkeistä tehtäväehdoista matkan varrella.",
     trackerDetails: "Työkalu sisältää hahmokohtaisen edistymisen, haun, näytöskohtaisen navigoinnin ja mahdollisuuden piilottaa valmiit kohdat. Edistyminen säilyy vain tämän käynnin ajan tai voidaan halutessasi tallentaa selaimeen. Tämä on fanin tekemä työkalu, eikä se ole Grinding Gear Gamesin kanssa sidoksissa.",
     trackerLink: "Avaa All Ears -seuranta", comingSoon: "No Stone Unturned – tulossa pian",
     toolsTitle: "Lisää työkaluja",
@@ -46,9 +46,7 @@ function applyLanguage(language) {
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     const translation = copy[element.dataset.i18n];
     if (translation === undefined) return;
-    if (element.dataset.i18n === "trackerIntro" || element.dataset.i18n === "trackerDetails") {
-      element.textContent = translation.replaceAll("**", "");
-    } else if (element.dataset.i18n === "trackerLink") {
+    if (element.dataset.i18n === "trackerLink") {
       element.innerHTML = `${translation} <span aria-hidden="true">→</span>`;
     } else {
       element.innerHTML = translation;
