@@ -1,6 +1,6 @@
 * { box-sizing: border-box; }
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --flag-purple: #4c1166;
   --flag-blue: #4175bb;
   --flag-green: #8bbe1a;
@@ -46,6 +46,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .theme-toggle { min-height: 32px; display: inline-flex; align-items: center; gap: 7px; padding: 0 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface-raised); color: var(--muted); cursor: pointer; font: inherit; font-size: 11px; }
 .theme-toggle:hover { border-color: var(--flag-blue); color: var(--flag-purple); }
 .theme-icon { width: 14px; color: var(--flag-purple); font-size: 15px; line-height: 1; }
+.language-icon { width: 14px; color: var(--flag-purple); font-size: 13px; line-height: 1; }
 .page-layout { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 27px; align-items: start; padding: 17px 0 0; }
 .sidebar { min-height: 330px; padding: 12px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
 .sidebar-label { margin: 4px 9px 10px; color: var(--subtle); font-size: 9px; font-weight: 700; letter-spacing: .11em; }
@@ -106,6 +107,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 :root[data-theme="dark"] .header-nav a { color: var(--muted); }
 :root[data-theme="dark"] .header-nav a[href^="https://github.com"] { color: #8db4e6; }
 :root[data-theme="dark"] .theme-icon { color: var(--flag-cream); }
+:root[data-theme="dark"] .language-icon { color: var(--flag-cream); }
 :root[data-theme="dark"] .primary-link { border-color: #715885; background: #312438; color: var(--flag-cream); }
 :root[data-theme="dark"] .primary-link:hover { border-color: #7fa7dc; background: #3a2b43; color: #fff; }
 :root[data-theme="dark"] .upcoming-icon { background: #30351f; color: #c0e283; }
@@ -118,7 +120,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
   .header-nav { gap: 13px; }
   .header-nav a { font-size: 11px; }
   .theme-toggle { width: 32px; height: 32px; justify-content: center; padding: 0; }
-  .theme-toggle .theme-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .theme-toggle .theme-label, .theme-toggle .language-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
   .page-layout { display: flex; flex-direction: column; gap: 14px; padding-top: 12px; }
   .sidebar { width: 100%; min-height: auto; padding: 8px; }
   .sidebar > .sidebar-label, .sidebar nav > .sidebar-label, .sidebar-bottom, .sidebar nav > a:not(.sidebar-tool) { display: none; }
